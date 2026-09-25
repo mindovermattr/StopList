@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Том ям с креветками",
+    "category": "kitchen",
+    "price": 590,
+    "portionsLeft": 8
+  },
+  {
+    "id": 2,
+    "name": "Цезарь с курицей",
+    "category": "kitchen",
+    "price": 450,
+    "portionsLeft": 12
+  },
+  {
+    "id": 3,
+    "name": "Борщ с говядиной",
+    "category": "kitchen",
+    "price": 380,
+    "portionsLeft": 5
+  },
+  {
+    "id": 4,
+    "name": "Паста карбонара",
+    "category": "kitchen",
+    "price": 520,
+    "portionsLeft": 0
+  },
+  {
+    "id": 5,
+    "name": "Стейк рибай",
+    "category": "kitchen",
+    "price": 1290,
+    "portionsLeft": 3
+  },
+  {
+    "id": 6,
+    "name": "Маргарита",
+    "category": "kitchen",
+    "price": 490,
+    "portionsLeft": 10
+  },
+  {
+    "id": 7,
+    "name": "Мохито безалкогольный",
+    "category": "bar",
+    "price": 320,
+    "portionsLeft": 25
+  },
+  {
+    "id": 8,
+    "name": "Эспрессо",
+    "category": "bar",
+    "price": 180,
+    "portionsLeft": 40
+  },
+  {
+    "id": 9,
+    "name": "Крафтовый IPA",
+    "category": "bar",
+    "price": 390,
+    "portionsLeft": 15
+  },
+  {
+    "id": 10,
+    "name": "Чизкейк Нью-Йорк",
+    "category": "dessert",
+    "price": 350,
+    "portionsLeft": 7
+  },
+  {
+    "id": 11,
+    "name": "Тирамису",
+    "category": "dessert",
+    "price": 370,
+    "portionsLeft": 4
+  },
+  {
+    "id": 12,
+    "name": "Мороженое пломбир с карамелью",
+    "category": "dessert",
+    "price": 240,
+    "portionsLeft": 18
+  }
+]
