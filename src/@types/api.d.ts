@@ -6,6 +6,7 @@ type MenuItem = {
   price: number; // в рублях
   portionsLeft: number; // остаток порций на кухне
 };
+
 // Запись в стоп-листе
 type StopListEntry = {
   itemId: number;
