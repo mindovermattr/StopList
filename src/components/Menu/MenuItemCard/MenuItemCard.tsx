@@ -3,11 +3,13 @@ import { CATEGORY_LABELS } from "@/constants/menu";
 import { formatPrice } from "@/utils/formatPrice";
 import clsx from "clsx";
 import { ArrowRightIcon } from "lucide-react";
+import { useState } from "react";
 import styles from "./MenuItemCard.module.css";
 
-type MenuItemCardProps = Omit<MenuItem, "id">;
+type MenuItemCardProps = MenuItem;
 
 export function MenuItemCard({ name, category, price, portionsLeft }: MenuItemCardProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const isOutOfStock = portionsLeft === 0;
 
   return (
@@ -20,7 +22,7 @@ export function MenuItemCard({ name, category, price, portionsLeft }: MenuItemCa
           <p>Порций: {portionsLeft}</p>
         </div>
       </div>
-      <Button icon={<ArrowRightIcon size={18} />} size="sm">
+      <Button icon={<ArrowRightIcon size={18} />} size="sm" onClick={() => setIsOpen(!isOpen)}>
         В стоп-лист
       </Button>
     </article>

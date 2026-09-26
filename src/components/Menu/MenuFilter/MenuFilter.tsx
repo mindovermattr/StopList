@@ -1,3 +1,4 @@
+import { Input } from "@/components/Input/Input";
 import { SegmentedControl } from "@/components/SegmentedControl/SegmentedControl";
 import type { CategoryFilter } from "@/constants/menu";
 import { CATEGORY_FILTER_OPTIONS } from "@/constants/menu";
@@ -12,8 +13,9 @@ type MenuFilterProps = {
 export function MenuFilter({ category, onFilterChange }: MenuFilterProps) {
   return (
     <div className={styles.filter}>
-      <input
-        className={styles["filter__search"]}
+      <Input
+        className={styles["filter__input"]}
+        type="search"
         placeholder="Поиск по названию"
         onChange={(e) => onFilterChange({ search: e.target.value })}
       />

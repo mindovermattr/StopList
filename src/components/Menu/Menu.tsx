@@ -1,6 +1,8 @@
 import type { CategoryFilter } from "@/constants/menu";
-import { useDebounceState } from "@/hooks/useDebounceState";
-import { useEffect, useMemo, useState } from "react";
+import { useDebounceCallback } from "@/hooks/useDebounceCallback";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { fetchMenu, selectFilteredMenuItems, setCategory, setSearch } from "@/store/slices/menu.slice";
+import { useEffect } from "react";
 import styles from "./Menu.module.css";
 import { MenuEmpty } from "./MenuEmpty/MenuEmpty";
 import { MenuFilter } from "./MenuFilter/MenuFilter";
@@ -9,36 +11,30 @@ import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
 export type MenuFilters = { category: CategoryFilter; search: string };
 
 export function Menu() {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [category, setCategory] = useState<CategoryFilter>("all");
-  const [searchTerm, setSearchTerm] = useDebounceState("", 175);
+  const dispatch = useAppDispatch();
+  const filteredItems = useAppSelector(selectFilteredMenuItems);
+  const category = useAppSelector((state) => state.menu.filters.category);
+  const dispatchSearch = useDebounceCallback((value: string) => dispatch(setSearch(value)), 175);
 
   useEffect(() => {
-    fetch("/src/data/menu.json")
-      .then((res) => res.json())
-      .then((data) => setMenuItems(data));
-  }, []);
-
-  const filteredItems = useMemo(() => {
-    return menuItems
-      .filter((item) => {
-        if (category === "all") return true;
-        return item.category === category;
-      })
-      .filter(
-        (item) =>
-          searchTerm === "" || item.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()),
-      );
-  }, [menuItems, searchTerm, category]);
+    const fetchData = async () => {
+      try {
+        await dispatch(fetchMenu()).unwrap();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [dispatch]);
 
   const handleFilterChange = (patch: Partial<MenuFilters>) => {
     if (patch.category) {
-      setCategory(patch.category);
-    }
-    if ("search" in patch) {
-      setSearchTerm(patch.search ?? "");
+      dispatch(setCategory(patch.category));
+    } else if ("search" in patch) {
+      dispatchSearch(patch.search ?? "");
     }
   };
+  
 
   return (
     <section className={styles.menu}>
