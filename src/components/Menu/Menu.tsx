@@ -1,15 +1,21 @@
+import type { CategoryFilter } from "@/constants/menu";
 import { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
+import { MenuFilter } from "./MenuFilter/MenuFilter";
 import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
 
 export function Menu() {
-  const [state, setState] = useState<MenuItem[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [category, setCategory] = useState<CategoryFilter>("all");
 
   useEffect(() => {
     fetch("/src/data/menu.json")
       .then((res) => res.json())
-      .then((data) => setState(data));
+      .then((data) => setMenuItems(data));
   }, []);
+
+  const visibleItems =
+    category === "all" ? menuItems : menuItems.filter((item) => item.category === category);
 
   return (
     <section className={styles.menu}>
@@ -18,7 +24,8 @@ export function Menu() {
       <div className={styles["menu__content"]}>
         <section className={styles.items}>
           <h3>Доступные позиции</h3>
-          {state.map((item) => (
+          <MenuFilter category={category} onCategoryChange={setCategory} />
+          {visibleItems.map((item) => (
             <MenuItemCard key={item.id} {...item} />
           ))}
         </section>

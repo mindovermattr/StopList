@@ -1,16 +1,11 @@
 import { Button } from "@/components/Button/Button";
+import { CATEGORY_LABELS } from "@/constants/menu";
 import { formatPrice } from "@/utils/formatPrice";
 import clsx from "clsx";
 import { ArrowRightIcon } from "lucide-react";
 import styles from "./MenuItemCard.module.css";
 
 type MenuItemCardProps = Omit<MenuItem, "id">;
-
-const CATEGORY_LABELS: Record<MenuItem["category"], string> = {
-  kitchen: "Кухня",
-  bar: "Бар",
-  dessert: "Десерт",
-};
 
 export function MenuItemCard({ name, category, price, portionsLeft }: MenuItemCardProps) {
   const isOutOfStock = portionsLeft === 0;
