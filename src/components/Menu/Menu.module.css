@@ -24,3 +24,8 @@
 
     background-color: var(--color-surface);
 }
+
+.items__title{
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-2);
+}

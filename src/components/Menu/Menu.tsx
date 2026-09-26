@@ -2,6 +2,7 @@ import type { CategoryFilter } from "@/constants/menu";
 import { useDebounceState } from "@/hooks/useDebounceState";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./Menu.module.css";
+import { MenuEmpty } from "./MenuEmpty/MenuEmpty";
 import { MenuFilter } from "./MenuFilter/MenuFilter";
 import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
 
@@ -45,11 +46,13 @@ export function Menu() {
 
       <div className={styles["menu__content"]}>
         <section className={styles.items}>
-          <h3>Доступные позиции</h3>
+          <h3 className={styles.items__title}>Доступные позиции</h3>
           <MenuFilter category={category} onFilterChange={handleFilterChange} />
-          {filteredItems.map((item) => (
-            <MenuItemCard key={item.id} {...item} />
-          ))}
+          {filteredItems.length === 0 ? (
+            <MenuEmpty />
+          ) : (
+            filteredItems.map((item) => <MenuItemCard key={item.id} {...item} />)
+          )}
         </section>
         <article>
           <h3>Стоп лист</h3>
