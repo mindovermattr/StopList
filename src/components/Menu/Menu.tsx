@@ -1,12 +1,16 @@
 import type { CategoryFilter } from "@/constants/menu";
-import { useEffect, useState } from "react";
+import { useDebounceState } from "@/hooks/useDebounceState";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./Menu.module.css";
 import { MenuFilter } from "./MenuFilter/MenuFilter";
 import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
 
+export type MenuFilters = { category: CategoryFilter; search: string };
+
 export function Menu() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [category, setCategory] = useState<CategoryFilter>("all");
+  const [searchTerm, setSearchTerm] = useDebounceState("", 175);
 
   useEffect(() => {
     fetch("/src/data/menu.json")
@@ -14,8 +18,26 @@ export function Menu() {
       .then((data) => setMenuItems(data));
   }, []);
 
-  const visibleItems =
-    category === "all" ? menuItems : menuItems.filter((item) => item.category === category);
+  const filteredItems = useMemo(() => {
+    return menuItems
+      .filter((item) => {
+        if (category === "all") return true;
+        return item.category === category;
+      })
+      .filter(
+        (item) =>
+          searchTerm === "" || item.name.toLowerCase().includes(searchTerm.toLocaleLowerCase()),
+      );
+  }, [menuItems, searchTerm, category]);
+
+  const handleFilterChange = (patch: Partial<MenuFilters>) => {
+    if (patch.category) {
+      setCategory(patch.category);
+    }
+    if ("search" in patch) {
+      setSearchTerm(patch.search ?? "");
+    }
+  };
 
   return (
     <section className={styles.menu}>
@@ -24,8 +46,8 @@ export function Menu() {
       <div className={styles["menu__content"]}>
         <section className={styles.items}>
           <h3>Доступные позиции</h3>
-          <MenuFilter category={category} onCategoryChange={setCategory} />
-          {visibleItems.map((item) => (
+          <MenuFilter category={category} onFilterChange={handleFilterChange} />
+          {filteredItems.map((item) => (
             <MenuItemCard key={item.id} {...item} />
           ))}
         </section>

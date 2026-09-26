@@ -2,26 +2,28 @@ import { SegmentedControl } from "@/components/SegmentedControl/SegmentedControl
 import type { CategoryFilter } from "@/constants/menu";
 import { CATEGORY_FILTER_OPTIONS } from "@/constants/menu";
 import styles from "./MenuFilter.module.css";
-import { useRef } from "react";
+import type { MenuFilters } from "../Menu";
 
 type MenuFilterProps = {
   category: CategoryFilter;
-  onCategoryChange: (category: CategoryFilter) => void;
+  onFilterChange: (filter: Partial<MenuFilters>) => void;
 };
 
-export function MenuFilter({ category, onCategoryChange }: MenuFilterProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-
+export function MenuFilter({ category, onFilterChange }: MenuFilterProps) {
   return (
     <div className={styles.filter}>
-      <input ref={inputRef} className={styles["filter__search"]} placeholder="Поиск по названию" />
+      <input
+        className={styles["filter__search"]}
+        placeholder="Поиск по названию"
+        onChange={(e) => onFilterChange({ search: e.target.value })}
+      />
 
       <SegmentedControl
         className={styles["filter__categories"]}
         name="category"
         options={CATEGORY_FILTER_OPTIONS}
         value={category}
-        onChange={onCategoryChange}
+        onChange={(value) => onFilterChange({ category: value })}
       />
     </div>
   );
