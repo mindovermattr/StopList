@@ -1,8 +1,10 @@
 .card{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     transition: box-shadow var(--transition-fast);
     padding: var(--space-3);
 
@@ -11,7 +13,30 @@
     }
 }
 
+.card--out-of-stock{
+    border: 1px solid var(--color-error);
+}
+
 .card__content{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
 
+.card__category{
+    color: var(--color-accent);
+    font-weight: var(--font-weight-bold);
+}
 
+.card__name{
+    font-size: var(--font-size-lg);
+}
+
+.card__info{
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.card__price{
 }

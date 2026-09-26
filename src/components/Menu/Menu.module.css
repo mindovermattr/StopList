@@ -1,5 +1,6 @@
 .menu{
     margin-top: 128px;
+    margin-bottom: 24px;
 }
 
 .menu__content{
@@ -15,7 +16,7 @@
     flex-direction: column;
     gap: var(--space-2);
 
-    padding: var(--space-2) var(--space-4);
+    padding: var(--space-4);
 
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
