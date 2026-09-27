@@ -82,14 +82,21 @@ const menuSlice = createSlice({
   },
   selectors: {
     selectFilteredMenuItems: createSelector.withTypes<MenuState>()(
-      [(state) => state.items, (state) => state.filters.category, (state) => state.filters.search],
-      (items, category, search) => {
+      [
+        (state) => state.items,
+        (state) => state.filters.category,
+        (state) => state.filters.search,
+        (state) => state.stopList,
+      ],
+      (items, category, search, stopList) => {
         const query = normalize(search);
 
         return items.filter((item) => {
           const matchesCategory = category === "all" || item.category === category;
           const matchesSearch = query === "" || normalize(item.name).includes(query);
-          return matchesCategory && matchesSearch;
+          const matchesStopList = stopList.every((stopListItem) => item.id !== stopListItem.id);
+
+          return matchesCategory && matchesSearch && matchesStopList;
         });
       },
     ),

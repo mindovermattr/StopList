@@ -4,11 +4,12 @@ import { formatPrice } from "@/utils/formatPrice";
 import clsx from "clsx";
 import { ArrowRightIcon } from "lucide-react";
 import { useState } from "react";
+import { StopListModal } from "../StopListModal/StopListModal";
 import styles from "./MenuItemCard.module.css";
 
 type MenuItemCardProps = MenuItem;
 
-export function MenuItemCard({ name, category, price, portionsLeft }: MenuItemCardProps) {
+export function MenuItemCard({ name, category, price, portionsLeft, id }: MenuItemCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const isOutOfStock = portionsLeft === 0;
 
@@ -25,6 +26,12 @@ export function MenuItemCard({ name, category, price, portionsLeft }: MenuItemCa
       <Button icon={<ArrowRightIcon size={18} />} size="sm" onClick={() => setIsOpen(!isOpen)}>
         В стоп-лист
       </Button>
+
+      <StopListModal
+        item={{ name, category, price, portionsLeft, id }}
+        onClose={() => setIsOpen(false)}
+        isOpen={isOpen}
+      />
     </article>
   );
 }

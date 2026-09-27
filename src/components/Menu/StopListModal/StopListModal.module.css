@@ -1,0 +1,42 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+
+    padding: var(--space-4);
+}
+
+.modal__title{
+    align-self: center;
+    font-size: var(--font-size-lg);
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.field__time {
+    padding: var(--space-1);
+    border-radius: var(--radius-sm);
+    border-color: var(--color-border);
+}
+
+.field__textarea {
+    resize: vertical;
+    min-height: 60px;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    border-color: var(--color-border);
+}
+
+.button {
+    margin-top: var(--space-4);
+}
