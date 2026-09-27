@@ -23,10 +23,23 @@
     gap: var(--space-1);
 }
 
+.field__select select[aria-invalid="true"] {
+    border-color: var(--color-error);
+}
+
+.error{
+    color: var(--color-error);
+    font-size: var(--font-size-xs);
+}
+
 .field__time {
     padding: var(--space-1);
     border-radius: var(--radius-sm);
     border-color: var(--color-border);
+}
+
+.field__time[aria-invalid="true"] {
+    border-color: var(--color-error);
 }
 
 .field__textarea {
@@ -35,6 +48,10 @@
     padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-sm);
     border-color: var(--color-border);
+}
+
+.field__textarea[aria-invalid="true"] {
+    border-color: var(--color-error);
 }
 
 .button {

@@ -26,3 +26,7 @@ export const REASON_LABELS: Record<StopListEntry["reason"], string> = {
   no_cook: "Нет повара",
   other: "Другое",
 };
+
+export const REASONS = Object.keys(REASON_LABELS) as StopListEntry["reason"][];
+
+export const REASON_OPTIONS = REASONS.map((value) => ({ value, label: REASON_LABELS[value] }));

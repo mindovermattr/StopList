@@ -1,5 +1,6 @@
 import { Button } from "@/components/Button/Button";
 import { CATEGORY_LABELS } from "@/constants/menu";
+import { useAppSelector } from "@/store";
 import { formatPrice } from "@/utils/formatPrice";
 import clsx from "clsx";
 import { ArrowRightIcon } from "lucide-react";
@@ -11,6 +12,9 @@ type MenuItemCardProps = MenuItem;
 
 export function MenuItemCard({ name, category, price, portionsLeft, id }: MenuItemCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const isInStopList = useAppSelector((state) =>
+    state.menu.stopList.some((stopListItem) => stopListItem.itemId === id),
+  );
   const isOutOfStock = portionsLeft === 0;
 
   return (
@@ -23,8 +27,13 @@ export function MenuItemCard({ name, category, price, portionsLeft, id }: MenuIt
           <p>Порций: {portionsLeft}</p>
         </div>
       </div>
-      <Button icon={<ArrowRightIcon size={18} />} size="sm" onClick={() => setIsOpen(!isOpen)}>
-        В стоп-лист
+      <Button
+        icon={<ArrowRightIcon size={18} />}
+        size="sm"
+        disabled={isInStopList}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {isInStopList ? "В стоп-листе" : "В стоп-лист"}
       </Button>
 
       <StopListModal

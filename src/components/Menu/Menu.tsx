@@ -7,6 +7,7 @@ import styles from "./Menu.module.css";
 import { MenuEmpty } from "./MenuEmpty/MenuEmpty";
 import { MenuFilter } from "./MenuFilter/MenuFilter";
 import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
+import { StopList } from "../StopList/StopList";
 
 export type MenuFilters = { category: CategoryFilter; search: string };
 
@@ -50,9 +51,7 @@ export function Menu() {
             filteredItems.map((item) => <MenuItemCard key={item.id} {...item} />)
           )}
         </section>
-        <article>
-          <h3>Стоп лист</h3>
-        </article>
+        <StopList />
       </div>
     </section>
   );

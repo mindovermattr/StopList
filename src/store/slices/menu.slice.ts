@@ -2,9 +2,11 @@ import type { CategoryFilter } from "@/constants/menu";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 
+type StopListItem = MenuItem & StopListEntry;
+
 type MenuState = {
   items: MenuItem[];
-  stopList: MenuItem[];
+  stopList: StopListItem[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   filters: {
@@ -48,8 +50,14 @@ const menuSlice = createSlice({
     setMenuItems(state, action: PayloadAction<MenuItem[]>) {
       state.items = action.payload;
     },
-    addToStopList(state, action: PayloadAction<MenuItem>) {
-      state.stopList.push(action.payload);
+    addToStopList(state, action: PayloadAction<StopListItem>) {
+      const isAlreadyInStopList = state.stopList.some(
+        (stopListItem) => stopListItem.itemId === action.payload.itemId,
+      );
+
+      if (!isAlreadyInStopList) {
+        state.stopList.push(action.payload);
+      }
     },
     removeFromStopList(state, action: PayloadAction<number>) {
       state.stopList = state.stopList.filter((item) => item.id !== action.payload);
