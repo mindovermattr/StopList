@@ -7,7 +7,7 @@ import {
   setCategory,
   setSearch,
 } from "@/store/slices/menu.slice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Loader } from "../UI/Loader/Loader";
 import { StopList } from "../StopList/StopList";
 import styles from "./Menu.module.css";
@@ -19,25 +19,17 @@ import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
 export type MenuFilters = { category: CategoryFilter; search: string };
 
 export function Menu() {
-  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
+  const status = useAppSelector((state) => state.menu.status);
   const error = useAppSelector((state) => state.menu.error);
   const filteredItems = useAppSelector(selectFilteredMenuItems);
   const category = useAppSelector((state) => state.menu.filters.category);
   const dispatchSearch = useDebounceCallback((value: string) => dispatch(setSearch(value)), 175);
 
+  const isLoading = status === "idle" || status === "loading";
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        await dispatch(fetchMenu()).unwrap();
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
+    dispatch(fetchMenu());
   }, [dispatch]);
 
   const handleFilterChange = (patch: Partial<MenuFilters>) => {
@@ -45,17 +37,6 @@ export function Menu() {
       dispatch(setCategory(patch.category));
     } else if ("search" in patch) {
       dispatchSearch(patch.search ?? "");
-    }
-  };
-
-  const handleRetry = async () => {
-    try {
-      setIsLoading(true);
-      await dispatch(fetchMenu()).unwrap();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -74,7 +55,7 @@ export function Menu() {
               </Loader>
             </div>
           ) : error ? (
-            <MenuError onRetry={handleRetry} />
+            <MenuError onRetry={() => dispatch(fetchMenu())} />
           ) : filteredItems.length === 0 ? (
             <MenuEmpty />
           ) : (

@@ -30,7 +30,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .items__title {
@@ -39,6 +38,9 @@
 }
 
 @media (max-width: 768px) {
+  .menu {
+    margin-top: 18px;
+  }
   .menu__content {
     flex-direction: column-reverse;
   }

@@ -4,8 +4,6 @@ import { normalize } from "@/utils/normalize";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 
-export type StopListItem = MenuItem & StopListEntry;
-
 type MenuState = {
   items: MenuItem[];
   stopList: StopListEntry[];
@@ -103,18 +101,9 @@ const menuSlice = createSlice({
         });
       },
     ),
-    selectStopListItems: createSelector.withTypes<MenuState>()(
-      [(state) => state.items, (state) => state.stopList],
-      (items, stopList) =>
-        stopList.flatMap((stopListEntry) => {
-          const item = items.find((candidate) => candidate.id === stopListEntry.itemId);
-
-          return item ? [{ ...item, ...stopListEntry }] : [];
-        }),
-    ),
   },
 });
 
 export const { setCategory, setSearch, addToStopList, removeFromStopList } = menuSlice.actions;
-export const { selectFilteredMenuItems, selectStopListItems } = menuSlice.selectors;
+export const { selectFilteredMenuItems } = menuSlice.selectors;
 export const menuReducer = menuSlice.reducer;
