@@ -1,17 +1,17 @@
-.filter{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3);
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
 
-    margin-bottom: var(--space-4);
+  margin-bottom: var(--space-4);
 }
 
-.filter__input{
-    flex: 1 1 auto;
-    min-width: 0;
+.filter__input {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
-.filter__categories{
-    flex: 0 0 auto;
+.filter__categories {
+  flex: 0 0 auto;
 }

@@ -1,13 +1,18 @@
 import type { CategoryFilter } from "@/constants/menu";
 import { useDebounceCallback } from "@/hooks/useDebounceCallback";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { fetchMenu, selectFilteredMenuItems, setCategory, setSearch } from "@/store/slices/menu.slice";
+import {
+  fetchMenu,
+  selectFilteredMenuItems,
+  setCategory,
+  setSearch,
+} from "@/store/slices/menu.slice";
 import { useEffect } from "react";
+import { StopList } from "../StopList/StopList";
 import styles from "./Menu.module.css";
 import { MenuEmpty } from "./MenuEmpty/MenuEmpty";
 import { MenuFilter } from "./MenuFilter/MenuFilter";
 import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
-import { StopList } from "../StopList/StopList";
 
 export type MenuFilters = { category: CategoryFilter; search: string };
 
@@ -35,7 +40,6 @@ export function Menu() {
       dispatchSearch(patch.search ?? "");
     }
   };
-  
 
   return (
     <section className={styles.menu}>

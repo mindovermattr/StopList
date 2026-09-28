@@ -1,17 +1,17 @@
-.empty{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-1);
-    align-self: center;
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  align-self: center;
 
-    margin: var(--space-8) 0
+  margin: var(--space-8) 0;
 }
 
-.empty__icon{
-    color: var(--color-accent);
+.empty__icon {
+  color: var(--color-accent);
 }
 
-.empty__text{
+.empty__text {
   color: var(--color-text-muted);
 }

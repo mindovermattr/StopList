@@ -7,7 +7,7 @@ type LayoutProps = {
 export function Layout({ children }: LayoutProps) {
   return (
     <div className={styles.layout}>
-      <main className={styles.container}>{children}</main>  
+      <main className={styles.container}>{children}</main>
     </div>
   );
 }

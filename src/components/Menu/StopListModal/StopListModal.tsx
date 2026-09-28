@@ -8,7 +8,11 @@ import { addToStopList } from "@/store/slices/menu.slice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import styles from "./StopListModal.module.css";
-import { stopListFormSchema, type StopListFormInput, type StopListFormValues } from "./stopListFormSchema";
+import {
+  stopListFormSchema,
+  type StopListFormInput,
+  type StopListFormValues,
+} from "./stopListFormSchema";
 
 type StopListModalProps = {
   item: MenuItem;

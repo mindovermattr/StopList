@@ -1,14 +1,14 @@
-.empty{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-2);
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
 
-    padding: var(--space-4) 0;
-    color: var(--color-text-muted);
-    text-align: center;
+  padding: var(--space-4) 0;
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
-.empty__icon{
-    color: var(--color-accent);
+.empty__icon {
+  color: var(--color-accent);
 }

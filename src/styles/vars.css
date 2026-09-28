@@ -1,66 +1,66 @@
 :root {
-  --color-bg:           #F6F3EE;
-  --color-accent:       #C6462F;
-  --color-text:         #171512;
+  --color-bg: #f6f3ee;
+  --color-accent: #c6462f;
+  --color-text: #171512;
 
-  --color-surface:      #FFFFFF;
-  --color-border:       #E3DDD3;
-  --color-text-muted:   #6B655C;
-  --color-text-inverse: #FFFFFF;
+  --color-surface: #ffffff;
+  --color-border: #e3ddd3;
+  --color-text-muted: #6b655c;
+  --color-text-inverse: #ffffff;
 
-  --color-error:        #C6462F;
-  --color-error-bg:     #FBEAE6;
-  --color-disabled:     #B8B2A8;
-  --color-stop-bg:      #EFEAE2;
-  --color-stop-text:    #8A8378;
+  --color-error: #c6462f;
+  --color-error-bg: #fbeae6;
+  --color-disabled: #b8b2a8;
+  --color-stop-bg: #efeae2;
+  --color-stop-text: #8a8378;
 
-  --color-reason-out-of-stock: #C6462F;
-  --color-reason-bad-quality:  #B07D2B;
-  --color-reason-no-cook:      #6B655C;
-  --color-reason-other:        #4A4741;
+  --color-reason-out-of-stock: #c6462f;
+  --color-reason-bad-quality: #b07d2b;
+  --color-reason-no-cook: #6b655c;
+  --color-reason-other: #4a4741;
 
   /* Типографика */
   --font-family-base: system-ui, -apple-system, sans-serif;
 
-  --font-size-xs:   12px;
-  --font-size-sm:   14px;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
   --font-size-base: 16px;
-  --font-size-lg:   20px;
-  --font-size-xl:   24px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
 
   --font-weight-regular: 400;
-  --font-weight-medium:  500;
-  --font-weight-bold:    700;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
 
   --line-height-tight: 1.2;
-  --line-height-base:  1.5;
+  --line-height-base: 1.5;
 
   /* Отступы */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-5:  20px;
-  --space-6:  24px;
-  --space-8:  32px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
 
   /* Радиусы и тени */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   --radius-pill: 999px;
 
-  --shadow-card:  0 1px 2px rgba(23, 21, 18, 0.06);
+  --shadow-card: 0 1px 2px rgba(23, 21, 18, 0.06);
   --shadow-modal: 0 8px 24px rgba(23, 21, 18, 0.16);
 
   /* Контейнер */
   --container-width: 1300px;
 
   /* Брейкпоинты (только как справка) */
-  --bp-mobile:  375px;
-  --bp-tablet:  768px;
+  --bp-mobile: 375px;
+  --bp-tablet: 768px;
   --bp-desktop: 1280px;
 
   /* Переходы */

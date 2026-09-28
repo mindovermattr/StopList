@@ -1,21 +1,21 @@
 .layout {
-    background-color: var(--color-bg);
+  background-color: var(--color-bg);
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 
-    max-width: var(--container-width);
-    margin: 0 auto;
+  max-width: var(--container-width);
+  margin: 0 auto;
 
-    font-family: var(--font-family-base);
+  font-family: var(--font-family-base);
 }
 
 @media (max-width: 1300px) {
-    .container {
-        max-width: 960px;
-        padding: 0 var(--space-4);
-    }
+  .container {
+    max-width: 960px;
+    padding: 0 var(--space-4);
+  }
 }
