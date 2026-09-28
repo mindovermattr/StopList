@@ -15,7 +15,7 @@ export function MenuItemCard({ name, category, price, portionsLeft, id }: MenuIt
   const isOutOfStock = portionsLeft === 0;
 
   return (
-    <article className={clsx(styles.card, isOutOfStock && styles["card--out-of-stock"])}>
+    <article className={clsx(styles.card, isOutOfStock && styles["card--out-of-stock"], "fade-in")}>
       <div className={styles["card__content"]}>
         <p className={styles["card__category"]}>{CATEGORY_LABELS[category]}</p>
         <h4 className={styles["card__name"]}>{name}</h4>
@@ -24,7 +24,12 @@ export function MenuItemCard({ name, category, price, portionsLeft, id }: MenuIt
           <p>Порций: {portionsLeft}</p>
         </div>
       </div>
-      <Button icon={<ArrowRightIcon size={18} />} size="sm" onClick={() => setIsOpen(!isOpen)} className={styles["card__button"]}>
+      <Button
+        icon={<ArrowRightIcon size={18} />}
+        size="sm"
+        onClick={() => setIsOpen(!isOpen)}
+        className={styles["card__button"]}
+      >
         В стоп-лист
       </Button>
 

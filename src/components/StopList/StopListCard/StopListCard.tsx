@@ -46,7 +46,7 @@ export function StopListCard({
   const ReasonIcon = REASON_ICON[reason];
 
   return (
-    <article className={clsx(styles.card, REASON_CLASS[reason])}>
+    <article className={clsx(styles.card, REASON_CLASS[reason], "fade-in")}>
       <div className={styles.card__head}>
         <span className={styles.card__reason}>
           <ReasonIcon size={18} className={styles.card__reasonIcon} aria-hidden="true" />
