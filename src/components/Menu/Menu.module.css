@@ -30,3 +30,11 @@
     font-size: var(--font-size-xl);
     margin-bottom: var(--space-2);
 }
+
+
+@media (max-width: 768px) {
+    .menu__content{
+        flex-direction: column-reverse;
+
+    }
+}
