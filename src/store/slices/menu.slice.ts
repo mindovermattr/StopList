@@ -2,7 +2,7 @@ import type { CategoryFilter } from "@/constants/menu";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 
-type StopListItem = MenuItem & StopListEntry;
+export type StopListItem = MenuItem & StopListEntry;
 
 type MenuState = {
   items: MenuItem[];

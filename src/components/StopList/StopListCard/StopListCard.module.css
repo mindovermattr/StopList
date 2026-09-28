@@ -1,0 +1,86 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+
+    padding: var(--space-3);
+    background-color: var(--color-stop-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+}
+
+.card__content{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.card__top{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+
+    min-width: 0;
+}
+
+.card__name{
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-tight);
+}
+
+.card__reason{
+    flex-shrink: 0;
+
+    padding: 2px var(--space-2);
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-tight);
+
+    color: var(--color-stop-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+}
+
+.card__reason--out-of-stock{
+    color: var(--color-reason-out-of-stock);
+}
+
+.card__reason--bad-quality{
+    color: var(--color-reason-bad-quality);
+}
+
+.card__reason--no-cook{
+    color: var(--color-reason-no-cook);
+}
+
+.card__reason--other{
+    color: var(--color-reason-other);
+}
+
+.card__meta{
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.card__comment{
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-style: italic;
+}
+
+.card__return{
+    color: var(--color-stop-text);
+    font-size: var(--font-size-sm);
+}
+
+.card__footer{
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+}
