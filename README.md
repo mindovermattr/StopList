@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# Стоп-лист кухни
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Одностраничное приложение «Стоп-лист кухни» для команды ресторана: слева — меню со
+всеми доступными позициями, справа — стоп-лист. Позицию можно отправить в стоп-лист
+через форму с причиной и вернуть обратно в меню.
 
-Currently, two official plugins are available:
+Стек: **React 19 + TypeScript + Vite**, **Redux Toolkit** (store), **React Hook Form + Zod**
+(валидация формы), **CSS Modules + CSS-переменные**, lucide-react (иконки).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Быстрый старт
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Меню загружается из локального JSON: `public/data/menu.json`.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+Или через Docker
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+docker build -t stoplist .
+docker run --rm -p 8080:80 stoplist
 ```
+
+Приложение будет доступно на http://localhost:8080. Меню и весь SPA отдаёт Nginx
+(`nginx.conf`), на порт 8080 маппится его порт 80.
+
+## Принятые решения
+
+- **Всё состояние живёт в одном Redux store** (`menu.slice`): меню, стоп-лист и фильтры.
+  Отфильтрованный список считается через `createSelector` из стора, что позволяет закешировать его и не перерасчитывать при каждом рендере.
+- **JSON лежит в `public/data/`** и тянется через `fetch` в `createAsyncThunk`: так меню
+  работает и в dev, и в прод-сборке на Vercel, а на экране остаются честные состояния
+  загрузки и ошибок.
+- **Валидация формы — на стороне схемы (Zod + RHF)**, включая cross-field правило
+  («Другое» ⇨ комментарий ≥ 10 символов). Это убирает дублирование проверок в компоненте.
+- **Persist стоп-листа — middleware** поверх экшенов `add` и `remove`. 
+  При каждом `add` или `remove` сохраняет состояние стоп-листа в localStorage автоматически, описывать логику в useEffect не нужно.
+- **CSS Modules + CSS-переменные** Использовал глобальные css файлы для переменных, обнуляющих стилей и анимаций. Модульные стили живут только в компонентах, что помогает не думать о специфичности глобальных классов.
+- Добавил debounce для поиска, чтобы не ререндерить список на каждое нажатие.
+
+## Дополнительные библиотеки
+
+- **Zod + React Hook Form** Для удобного описания валидации формы и управления её состоянием. Данных подход отлично подходит для масштабируемости приложения.
+- **Lucide React** Для иконок.
+- **Clsx** Для удобного объединения классов.
+
+## Что бы я доделал
+
+- **Автовозврат позиции** в меню, когда наступает `returnAt`, и сортировка стоп-листа
+  по времени возврата.
+- Более интересные анимации появления/удаления позиций (Framer Motion).
+- Мультиселект для фильтрации для выбора сразу нескольких фильтров.
+- Возможность группировки позиций по причине добавления в стоплист. Также возможность скрыть одну или несколько групп.
+
+## Использование ИИ
+
+- Генерация бойлерплейта в Redux сторе.
+- Генерация дизайн токенов и переменных в css в соответствии с темой из технического задания.
+- Генерация UI компонентов.
+- Генерация шаблонной логики внутри компонентов.
+- Сгенерировал dockerfile и nginx конфиг для альтернативного запуска.

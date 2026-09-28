@@ -1,5 +1,6 @@
 import type { CategoryFilter } from "@/constants/menu";
 import { loadFromLocalStorage, LOCAL_STORAGE_KEYS } from "@/utils/localstorage";
+import { normalize } from "@/utils/normalize";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 
@@ -41,8 +42,6 @@ export const fetchMenu = createAsyncThunk<MenuItem[], void, { rejectValue: strin
     }
   },
 );
-
-const normalize = (value: string) => value.trim().toLocaleLowerCase("ru");
 
 const menuSlice = createSlice({
   name: "menu",

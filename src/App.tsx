@@ -1,4 +1,4 @@
-import { Layout } from "./components/Layout/Layout";
+import { Layout } from "./components/UI/Layout/Layout";
 import { Menu } from "./components/Menu/Menu";
 
 export function App() {

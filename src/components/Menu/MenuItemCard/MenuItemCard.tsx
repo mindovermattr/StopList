@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/UI/Button/Button";
 import { CATEGORY_LABELS } from "@/constants/menu";
 import { formatPrice } from "@/utils/formatPrice";
 import clsx from "clsx";

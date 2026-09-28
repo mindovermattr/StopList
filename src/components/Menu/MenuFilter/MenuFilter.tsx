@@ -1,5 +1,5 @@
-import { Input } from "@/components/Input/Input";
-import { SegmentedControl } from "@/components/SegmentedControl/SegmentedControl";
+import { Input } from "@/components/UI/Input/Input";
+import { SegmentedControl } from "@/components/UI/SegmentedControl/SegmentedControl";
 import type { CategoryFilter } from "@/constants/menu";
 import { CATEGORY_FILTER_OPTIONS } from "@/constants/menu";
 import styles from "./MenuFilter.module.css";

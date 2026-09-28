@@ -1,7 +1,7 @@
-import { Button } from "@/components/Button/Button";
-import { Input } from "@/components/Input/Input";
-import { Modal } from "@/components/Modal/Modal";
-import { Select } from "@/components/Select/Select";
+import { Button } from "@/components/UI/Button/Button";
+import { Input } from "@/components/UI/Input/Input";
+import { Modal } from "@/components/UI/Modal/Modal";
+import { Select } from "@/components/UI/Select/Select";
 import { REASON_OPTIONS } from "@/constants/menu";
 import { useAppDispatch } from "@/store";
 import { addToStopList } from "@/store/slices/menu.slice";

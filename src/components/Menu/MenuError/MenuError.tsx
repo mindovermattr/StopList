@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/UI/Button/Button";
 import { ServerCrashIcon } from "lucide-react";
 import styles from "./MenuError.module.css";
 

@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button/Button";
+import { Button } from "@/components/UI/Button/Button";
 import { CATEGORY_LABELS, REASON_LABELS } from "@/constants/menu";
 import { useAppDispatch } from "@/store";
 import { removeFromStopList, type StopListItem } from "@/store/slices/menu.slice";

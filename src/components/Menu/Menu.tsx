@@ -8,7 +8,7 @@ import {
   setSearch,
 } from "@/store/slices/menu.slice";
 import { useEffect, useState } from "react";
-import { Loader } from "../Loader/Loader";
+import { Loader } from "../UI/Loader/Loader";
 import { StopList } from "../StopList/StopList";
 import styles from "./Menu.module.css";
 import { MenuEmpty } from "./MenuEmpty/MenuEmpty";
