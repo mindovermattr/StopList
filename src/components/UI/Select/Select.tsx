@@ -1,8 +1,8 @@
-import { ChevronDownIcon } from "lucide-react";
 import clsx from "clsx";
+import { ChevronDownIcon } from "lucide-react";
 import styles from "./Select.module.css";
 
-export type SelectOption = {
+type SelectOption = {
   value: string;
   label: string;
 };
