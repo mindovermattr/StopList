@@ -21,11 +21,11 @@ export const CATEGORY_FILTER_OPTIONS = CATEGORY_FILTERS.map((value) => ({
 }));
 
 export const REASON_LABELS: Record<StopListEntry["reason"], string> = {
-  out_of_stock: "Нет в наличии",
-  bad_quality: "Плохое качество",
-  no_cook: "Нет повара",
+  out_of_stock: "Закончились продукты",
+  bad_quality: "Плохое качество партии",
+  no_cook: "Нет повара на станции",
   other: "Другое",
-};
+} as const;
 
 export const REASONS = Object.keys(REASON_LABELS) as StopListEntry["reason"][];
 

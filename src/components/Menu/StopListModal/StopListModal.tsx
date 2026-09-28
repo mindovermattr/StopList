@@ -8,11 +8,7 @@ import { addToStopList } from "@/store/slices/menu.slice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import styles from "./StopListModal.module.css";
-import {
-  stopListFormSchema,
-  type StopListFormInput,
-  type StopListFormValues,
-} from "./stopListFormSchema";
+import { stopListFormSchema } from "./stopListFormSchema";
 
 type StopListModalProps = {
   item: MenuItem;
@@ -28,8 +24,8 @@ export function StopListModal({ item, onClose, isOpen }: StopListModalProps) {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<StopListFormInput, unknown, StopListFormValues>({
+    formState: { errors, isSubmitting },
+  } = useForm({
     resolver: zodResolver(stopListFormSchema),
     defaultValues: { reason: "", comment: "", returnAt: "" },
   });
@@ -61,7 +57,7 @@ export function StopListModal({ item, onClose, isOpen }: StopListModalProps) {
             id="reason"
             className={styles.field__select}
             options={REASON_SELECT_OPTIONS}
-            aria-invalid={Boolean(errors.reason)}
+            aria-invalid={!!errors.reason}
             {...register("reason")}
           />
           {errors.reason && (
@@ -76,7 +72,8 @@ export function StopListModal({ item, onClose, isOpen }: StopListModalProps) {
             id="comment"
             className={styles.field__textarea}
             placeholder="Опишите причину"
-            aria-invalid={Boolean(errors.comment)}
+            maxLength={200}
+            aria-invalid={!!errors.comment}
             {...register("comment")}
           />
           {errors.comment && (
@@ -91,7 +88,7 @@ export function StopListModal({ item, onClose, isOpen }: StopListModalProps) {
             id="time"
             type="time"
             className={styles.field__time}
-            aria-invalid={Boolean(errors.returnAt)}
+            aria-invalid={!!errors.returnAt}
             {...register("returnAt")}
           />
           {errors.returnAt && (
@@ -100,7 +97,7 @@ export function StopListModal({ item, onClose, isOpen }: StopListModalProps) {
             </p>
           )}
         </fieldset>
-        <Button className={styles.button} type="submit">
+        <Button disabled={isSubmitting} className={styles.button} type="submit">
           Добавить
         </Button>
       </form>
