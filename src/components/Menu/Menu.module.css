@@ -26,6 +26,13 @@
   background-color: var(--color-surface);
 }
 
+.items__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .items__title {
   font-size: var(--font-size-xl);
   margin-bottom: var(--space-2);

@@ -4,7 +4,7 @@ import { z } from "zod";
 const COMMENT_MAX_LENGTH = 200;
 const COMMENT_MIN_LENGTH = 10;
 
-function hasEnoughComment(values: { reason: StopListEntry["reason"]; comment: string }): boolean {
+function hasEnoughComment(values: { reason: StopListEntry["reason"]; comment: string }) {
   return values.reason !== "other" || values.comment.length >= COMMENT_MIN_LENGTH;
 }
 
