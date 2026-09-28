@@ -1,4 +1,5 @@
 import type { CategoryFilter } from "@/constants/menu";
+import { loadFromLocalStorage, LOCAL_STORAGE_KEYS } from "@/utils/localstorage";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 
@@ -17,7 +18,7 @@ type MenuState = {
 
 const initialState: MenuState = {
   items: [],
-  stopList: [],
+  stopList: loadFromLocalStorage(LOCAL_STORAGE_KEYS.STOPLIST) ?? [],
   status: "idle",
   error: null,
   filters: {
