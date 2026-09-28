@@ -31,7 +31,7 @@ export const fetchMenu = createAsyncThunk<MenuItem[], void, { rejectValue: strin
   "menu/fetchMenu",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch("/src/data/menu.json");
+      const response = await fetch("/data/menu.json");
       if (!response.ok) {
         return rejectWithValue(`Не удалось загрузить меню: ${response.status}`);
       }

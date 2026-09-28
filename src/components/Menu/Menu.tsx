@@ -12,14 +12,16 @@ import { Loader } from "../Loader/Loader";
 import { StopList } from "../StopList/StopList";
 import styles from "./Menu.module.css";
 import { MenuEmpty } from "./MenuEmpty/MenuEmpty";
+import { MenuError } from "./MenuError/MenuError";
 import { MenuFilter } from "./MenuFilter/MenuFilter";
 import { MenuItemCard } from "./MenuItemCard/MenuItemCard";
 
 export type MenuFilters = { category: CategoryFilter; search: string };
 
 export function Menu() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
+  const error = useAppSelector((state) => state.menu.error);
   const filteredItems = useAppSelector(selectFilteredMenuItems);
   const category = useAppSelector((state) => state.menu.filters.category);
   const dispatchSearch = useDebounceCallback((value: string) => dispatch(setSearch(value)), 175);
@@ -46,6 +48,17 @@ export function Menu() {
     }
   };
 
+  const handleRetry = async () => {
+    try {
+      setIsLoading(true);
+      await dispatch(fetchMenu()).unwrap();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className={styles.menu}>
       <h1>Меню ресторана</h1>
@@ -60,6 +73,8 @@ export function Menu() {
                 <span>Данные загружаются…</span>
               </Loader>
             </div>
+          ) : error ? (
+            <MenuError onRetry={handleRetry} />
           ) : filteredItems.length === 0 ? (
             <MenuEmpty />
           ) : (
