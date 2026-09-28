@@ -1,11 +1,9 @@
-import type { StopListItem } from "@/store/slices/menu.slice";
-
 export const LOCAL_STORAGE_KEYS = {
   STOPLIST: "stoplist",
 } as const;
 
 type LocalStorageSchema = {
-  stoplist: StopListItem[];
+  stoplist: StopListEntry[];
 };
 
 type LocalStorageKey = (typeof LOCAL_STORAGE_KEYS)[keyof typeof LOCAL_STORAGE_KEYS];

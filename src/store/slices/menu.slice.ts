@@ -8,7 +8,7 @@ export type StopListItem = MenuItem & StopListEntry;
 
 type MenuState = {
   items: MenuItem[];
-  stopList: StopListItem[];
+  stopList: StopListEntry[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   filters: {
@@ -47,12 +47,9 @@ const menuSlice = createSlice({
   name: "menu",
   initialState,
   reducers: {
-    setMenuItems(state, action: PayloadAction<MenuItem[]>) {
-      state.items = action.payload;
-    },
-    addToStopList(state, action: PayloadAction<StopListItem>) {
+    addToStopList(state, action: PayloadAction<StopListEntry>) {
       const isAlreadyInStopList = state.stopList.some(
-        (stopListItem) => stopListItem.itemId === action.payload.itemId,
+        (stopListEntry) => stopListEntry.itemId === action.payload.itemId,
       );
 
       if (!isAlreadyInStopList) {
@@ -60,17 +57,15 @@ const menuSlice = createSlice({
       }
     },
     removeFromStopList(state, action: PayloadAction<number>) {
-      state.stopList = state.stopList.filter((item) => item.id !== action.payload);
+      state.stopList = state.stopList.filter(
+        (stopListEntry) => stopListEntry.itemId !== action.payload,
+      );
     },
     setCategory(state, action: PayloadAction<CategoryFilter>) {
       state.filters.category = action.payload;
     },
     setSearch(state, action: PayloadAction<string>) {
       state.filters.search = action.payload;
-    },
-    resetMenuFilters(state) {
-      state.filters.category = "all";
-      state.filters.search = "";
     },
   },
   extraReducers: (builder) => {
@@ -102,22 +97,24 @@ const menuSlice = createSlice({
         return items.filter((item) => {
           const matchesCategory = category === "all" || item.category === category;
           const matchesSearch = query === "" || normalize(item.name).includes(query);
-          const matchesStopList = stopList.every((stopListItem) => item.id !== stopListItem.id);
+          const matchesStopList = stopList.every((stopListEntry) => item.id !== stopListEntry.itemId);
 
           return matchesCategory && matchesSearch && matchesStopList;
         });
       },
     ),
+    selectStopListItems: createSelector.withTypes<MenuState>()(
+      [(state) => state.items, (state) => state.stopList],
+      (items, stopList) =>
+        stopList.flatMap((stopListEntry) => {
+          const item = items.find((candidate) => candidate.id === stopListEntry.itemId);
+
+          return item ? [{ ...item, ...stopListEntry }] : [];
+        }),
+    ),
   },
 });
 
-export const {
-  setCategory,
-  setSearch,
-  resetMenuFilters,
-  setMenuItems,
-  addToStopList,
-  removeFromStopList,
-} = menuSlice.actions;
-export const { selectFilteredMenuItems } = menuSlice.selectors;
+export const { setCategory, setSearch, addToStopList, removeFromStopList } = menuSlice.actions;
+export const { selectFilteredMenuItems, selectStopListItems } = menuSlice.selectors;
 export const menuReducer = menuSlice.reducer;

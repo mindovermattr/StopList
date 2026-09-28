@@ -33,7 +33,7 @@ const REASON_ICON: Record<StopListItem["reason"], LucideIcon> = {
 };
 
 export function StopListCard({
-  id,
+  itemId,
   name,
   category,
   price,
@@ -80,7 +80,7 @@ export function StopListCard({
           size="sm"
           fullWidth
           icon={<RotateCcwIcon size={16} />}
-          onClick={() => dispatch(removeFromStopList(id))}
+          onClick={() => dispatch(removeFromStopList(itemId))}
         >
           Вернуть
         </Button>

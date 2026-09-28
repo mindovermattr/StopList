@@ -18,6 +18,3 @@ export const stopListFormSchema = z
     path: ["comment"],
     message: `Для причины «Другое» опишите ситуацию — минимум ${COMMENT_MIN_LENGTH} символов`,
   });
-
-export type StopListFormInput = z.input<typeof stopListFormSchema>;
-export type StopListFormValues = z.infer<typeof stopListFormSchema>;

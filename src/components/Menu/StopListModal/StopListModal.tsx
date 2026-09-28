@@ -38,7 +38,6 @@ export function StopListModal({ item, onClose, isOpen }: StopListModalProps) {
   const onSubmit = handleSubmit((values) => {
     dispatch(
       addToStopList({
-        ...item,
         itemId: item.id,
         ...values,
         createdAt: new Date().toISOString(),

@@ -4,7 +4,7 @@ import {
   menuReducer,
   removeFromStopList,
   selectFilteredMenuItems,
-  type StopListItem,
+  selectStopListItems,
 } from "./menu.slice";
 
 const tomyam: MenuItem = {
@@ -47,13 +47,11 @@ const ice: MenuItem = {
   portionsLeft: 5,
 };
 
-const makeStopEntry = (item: MenuItem, overrides: Partial<StopListItem> = {}): StopListItem => ({
-  id: item.id,
-  itemId: item.id,
-  name: item.name,
-  category: item.category,
-  price: item.price,
-  portionsLeft: item.portionsLeft,
+const makeStopEntry = (
+  itemId: number,
+  overrides: Partial<StopListEntry> = {},
+): StopListEntry => ({
+  itemId,
   reason: "out_of_stock",
   comment: "",
   returnAt: "18:30",
@@ -74,7 +72,7 @@ const makeRoot = (menu: Partial<ReturnType<typeof menuReducer>> = {}) => ({
 
 describe("menu reducer", () => {
   it("добавляет позицию в стоп-лист", () => {
-    const entry = makeStopEntry(tomyam);
+    const entry = makeStopEntry(tomyam.id);
     const state = menuReducer(undefined, addToStopList(entry));
 
     expect(state.stopList).toHaveLength(1);
@@ -82,7 +80,7 @@ describe("menu reducer", () => {
   });
 
   it("не добавляет одну и ту же позицию", () => {
-    const entry = makeStopEntry(tomyam);
+    const entry = makeStopEntry(tomyam.id);
     const state = menuReducer(undefined, addToStopList(entry));
     const nextState = menuReducer(state, addToStopList(entry));
 
@@ -90,7 +88,7 @@ describe("menu reducer", () => {
   });
 
   it("убирает позицию из стоп-листа", () => {
-    const entry = makeStopEntry(tomyam);
+    const entry = makeStopEntry(tomyam.id);
     const addedState = menuReducer(undefined, addToStopList(entry));
     const deletedState = menuReducer(addedState, removeFromStopList(entry.itemId));
 
@@ -102,7 +100,7 @@ describe("selectFilteredMenuItems", () => {
   it("возвращает все позиции, кроме находящихся в стоп-листе", () => {
     const state = makeRoot({
       items: [tomyam, caesar, gin, cheesecake],
-      stopList: [makeStopEntry(gin)],
+      stopList: [makeStopEntry(gin.id)],
     });
 
     expect(selectFilteredMenuItems(state)).toEqual([tomyam, caesar, cheesecake]);
@@ -197,9 +195,44 @@ describe("selectFilteredMenuItems", () => {
   });
 
   it("позиция, добавленная через addToStopList, исчезает из меню", () => {
-    const menu = menuReducer(undefined, addToStopList(makeStopEntry(gin)));
+    const menu = menuReducer(undefined, addToStopList(makeStopEntry(gin.id)));
     const state = makeRoot({ items: [tomyam, caesar, gin, cheesecake], stopList: menu.stopList });
 
     expect(selectFilteredMenuItems(state)).toEqual([tomyam, caesar, cheesecake]);
+  });
+});
+
+describe("selectStopListItems", () => {
+  it("дополняет запись стоп-листа данными позиции из меню", () => {
+    const state = makeRoot({
+      items: [tomyam, caesar],
+      stopList: [makeStopEntry(caesar.id, { reason: "no_cook", comment: "Повар ушёл" })],
+    });
+
+    expect(selectStopListItems(state)).toEqual([
+      {
+        ...caesar,
+        itemId: caesar.id,
+        reason: "no_cook",
+        comment: "Повар ушёл",
+        returnAt: "18:30",
+        createdAt: "2026-01-01T00:00:00.000Z",
+      },
+    ]);
+  });
+
+  it("прячет записи, чей позиции больше нет в меню", () => {
+    const state = makeRoot({
+      items: [tomyam],
+      stopList: [makeStopEntry(caesar.id)],
+    });
+
+    expect(selectStopListItems(state)).toEqual([]);
+  });
+
+  it("возвращает пустой список, пока меню не загружено", () => {
+    const state = makeRoot({ stopList: [makeStopEntry(tomyam.id)] });
+
+    expect(selectStopListItems(state)).toEqual([]);
   });
 });

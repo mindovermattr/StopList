@@ -1,14 +1,14 @@
 import { useAppSelector } from "@/store";
+import { selectStopListItems } from "@/store/slices/menu.slice";
 import styles from "./StopList.module.css";
 import { StopListCard } from "./StopListCard/StopListCard";
 import { StopListEmpty } from "./StopListEmpty/StopListEmpty";
 
 export function StopList() {
-  const stopListItems = useAppSelector((state) => state.menu.stopList);
-  const menuItems = useAppSelector((state) => state.menu.items);
+  const stopListItems = useAppSelector(selectStopListItems);
+  const menuItemsCount = useAppSelector((state) => state.menu.items.length);
 
   const stopListItemsCount = stopListItems.length;
-  const menuItemsCount = menuItems.length;
   return (
     <div className={styles.stoplist}>
       <div className={styles.stoplist__header}>
